@@ -17,8 +17,8 @@
         <logback.version>1.4.11</logback.version>
         <encoding>UTF-8</encoding>
         <parallel.tests>4</parallel.tests>
-        <!-- Base URL can be defined here or replaced dynamically -->
         <webdriver.base.url>http://example.com</webdriver.base.url>
+        <java.version>11</java.version> <!-- Explicitly setting Java version -->
     </properties>
 
     <dependencies>
@@ -102,6 +102,8 @@
                 <configuration>
                     <parallel>methods</parallel>
                     <threadCount>${parallel.tests}</threadCount>
+                    <!-- Explicitly add JVM options for module access -->
+                    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
                 </configuration>
             </plugin>
             <plugin>
