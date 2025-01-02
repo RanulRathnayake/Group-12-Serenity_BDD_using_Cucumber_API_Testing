@@ -17,14 +17,14 @@ public class getAllBooksSteps {
     private String password;
 
     // Given step - login
-    @Given("I am logged in with the username {string} and password {string}")
+    @Given("I am logged in with the username {string} and password {string} - GET")
     public void i_am_logged_in_with_the_username_and_password(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
     // Given step - not logged in
-    @Given("I am not logged in")
+    @Given("I am not logged in - GET")
     public void i_am_not_logged_in() {
         this.username = null;
         this.password = null;
