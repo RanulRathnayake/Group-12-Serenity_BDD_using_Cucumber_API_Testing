@@ -8,6 +8,9 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+//import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertNotNull;
+//import org.json.JSONObject;
 
 public class CreateBookSteps {
 
@@ -72,16 +75,48 @@ public class CreateBookSteps {
                 .post(baseUrl + "/api/books");
     }
 
-    // Then step - validate response status code for missing title
-    @Then("the response status code should be {int} for missing title")
-    public void the_response_status_code_should_be_400_for_missing_title(int statuscode) {
-        assertThat(response.statusCode(), equalTo(statuscode));
+    @When("I attempt to create a book with missing id and title {string} and author {string}")
+    public void i_attempt_to_create_a_book_with_missing_id_and_title_and_author(String title, String author) {
+        // Prepare the request body without the "id" field
+        String jsonBody = String.format("{\"title\": \"%s\", \"author\": \"%s\"}", title, author);
+
+        // Send the POST request to create a new book
+        response = given()
+                .auth().basic(username, password)
+                .contentType("application/json")
+                .body(jsonBody)
+                .when()
+                .post(baseUrl + "/api/books");
     }
-//
-//    // Then step - validate error message for missing title
-//    @Then("the error message should indicate missing title")
-//    public void the_error_message_should_indicate_missing_title() {
-//        String errorMessage = response.jsonPath().getString("message");
-//        assertThat(errorMessage, containsString("Invalid | Empty Input Parameters in the Request"));
-//    }
+
+
+    @And("a book exists with id {int} title {string} and author {string}")
+    public void a_book_exists_with_id(int id, String title, String author) {
+        int createdId = response.jsonPath().getInt("id");
+        String createdTitle = response.jsonPath().getString("title");
+        String createdAuthor = response.jsonPath().getString("author");
+
+        assertThat(createdId, equalTo(id));
+        assertThat(createdTitle, equalTo(title));
+        assertThat(createdAuthor, equalTo(author));
+    }
+    @And("the error message should contain {string}")
+    public void the_error_message_should_contain(String expectedMessage) {
+        String contentType = response.getContentType();
+
+        if (contentType.contains("application/json")) {
+            String errorMessage = response.jsonPath().getString("message");
+            assertThat(errorMessage, containsString(expectedMessage));
+            assertThat(errorMessage, notNullValue());
+        } else if (contentType.contains("text/plain")) {
+            String errorMessage = response.getBody().asString();
+            assertThat(errorMessage, containsString(expectedMessage));
+        } else {
+            throw new AssertionError("Unexpected response content type: " + contentType);
+        }
+    }
+
+
+
+
 }
