@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
-        plugin = {"pretty"},
-        features = "classpath:features"
+        features = "src/test/resources/features", // Path to your feature files
+        plugin = {"pretty", "html:target/cucumber-reports.html", "json:target/cucumber.json"}
 )
 public class CucumberTestSuite {}
