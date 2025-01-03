@@ -14,9 +14,9 @@ Feature: Create Book API Testing
 
   Scenario: Attempt to create a book with duplicate valid data
     Given I am logged in with the username "admin" and password "password"
-    When I create a new book with id 5 title "Book05" and author "Author05"
-    And a book exists with id 5 title "Book05" and author "Author05"
-    When I create a new book with id 5 title "Book05" and author "Author05"
+    When I create a new book with id 3 title "Book03" and author "Author03"
+    And a book exists with id 3 title "Book03" and author "Author03"
+    When I create a new book with id 3 title "Book03" and author "Author05"
     Then the response status code should 208
     And the error message should contain "Book Already Exists"
 
@@ -25,7 +25,7 @@ Feature: Create Book API Testing
     #When I create a new book with id 2 title "Book02" and author "Author02"
     #Then the response status code should 201
     #And the book should be created with id 2 title "Book02" and author "Author02"
-  
+
   #Scenario: Attempt to create a book with missing ID
     #Given I am logged in with the username "admin" and password "password"
     #When I attempt to create a book with missing id and title "Book01" and author "Author01"
