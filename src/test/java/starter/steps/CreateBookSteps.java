@@ -42,8 +42,8 @@ public class CreateBookSteps {
     }
 
     // Then step - validate response status code for valid book creation
-    @Then("the response status code should be {int}")
-    public void the_response_status_code_should_be(Integer expectedStatusCode) {
+    @Then("the response status code should {int}")
+    public void the_response_status_code_should(Integer expectedStatusCode) {
         assertThat(response.statusCode(), equalTo(expectedStatusCode));
     }
 
