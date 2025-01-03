@@ -1,6 +1,6 @@
 Technologies : Serenity BDD with Cucumber
 
-Group Members
+Group 12: Group Members
 
 204181M - Rathnayake R. G
 
