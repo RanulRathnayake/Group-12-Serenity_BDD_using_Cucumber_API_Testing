@@ -18,8 +18,8 @@ public class GetABookSteps {
     private String password;
     private String bookId;
 
-    @Given("I am logged in with the username {string} and password {string}")
-    public void i_am_logged_in_with_the_username_and_password(String username, String password) {
+    @Given("I am logged in with username {string} and password {string}")
+    public void i_am_logged_in_with_username_and_password(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -35,8 +35,8 @@ public class GetABookSteps {
         this.bookId = bookId;
     }
 
-    @When("I create a new book with id {int} title {string} and author {string}")
-    public void i_create_a_new_book_with_title_and_author(int id, String title, String author) {
+    @When("I create a book with id {int} title {string} and author {string}")
+    public void I_create_a_book_with_title_and_author(int id, String title, String author) {
         String jsonBody = String.format("{\"id\": %d, \"title\": \"%s\", \"author\": \"%s\"}", id, title, author);
         System.out.println(jsonBody);
         response = given()
@@ -47,7 +47,7 @@ public class GetABookSteps {
                 .post(baseUrl + "/api/books");
     }
 
-    @And("the book should be created with id {int} title {string} and author {string}")
+    @And("the book should be created with the id {int} title {string} and author {string}")
     public void the_book_should_be_created_with_title_and_author(int id, String title, String author) {
         int createdId = response.jsonPath().getInt("id");
         String createdTitle = response.jsonPath().getString("title");
@@ -73,8 +73,8 @@ public class GetABookSteps {
         }
     }
 
-    @Then("the response status code should be {int}")
-    public void the_response_status_code_should_be(Integer expectedStatusCode) {
+    @Then("The response status code should be {int}")
+    public void The_response_status_code_should_be(Integer expectedStatusCode) {
         assertThat(response.statusCode(), equalTo(expectedStatusCode));
     }
 
@@ -83,8 +83,8 @@ public class GetABookSteps {
         assertThat(response.jsonPath().getString("id"), equalTo(bookId));
     }
 
-    @And("the response should indicate that authentication is required")
-    public void the_response_should_indicate_that_authentication_is_required() {
+    @And("response should indicate that authentication is required")
+    public void response_should_indicate_that_authentication_is_required() {
         assertThat(response.statusCode(), equalTo(401));
 
         String responseBody = response.body().asString();
