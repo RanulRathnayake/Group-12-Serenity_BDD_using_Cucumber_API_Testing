@@ -61,6 +61,16 @@ public class UpdateBookSteps {
         assertThat(response.statusCode(), equalTo(expectedStatusCode));
     }
 
+    // Validate updated book details
+    @Then("the book should be updated with the new details - Update Book")
+    public void the_book_should_be_updated_with_the_new_details() {
+        String updatedTitle = response.jsonPath().getString("title");
+        String updatedAuthor = response.jsonPath().getString("author");
+
+        assertThat(updatedTitle, equalTo(expectedTitle));
+        assertThat(updatedAuthor, equalTo(expectedAuthor));
+    }
+
     // Validate error message for invalid input
     @Then("Invalid | Empty Input Parameters in the Request should be indicated - Update Book")
     public void invalid_empty_input_parameters_in_the_request_should_be_indicated() {
@@ -74,4 +84,5 @@ public class UpdateBookSteps {
         String errorMessage = response.jsonPath().getString("error");
         assertThat(errorMessage, containsString(expectedMessage));
     }
+
 }
