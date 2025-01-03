@@ -78,4 +78,11 @@ public class UpdateBookSteps {
         assertThat(errorMessage, containsString("Invalid | Empty Input Parameters"));
     }
 
+    // Validate error message for authorization failure
+    @Then("the error message should indicate {string} - Update Book")
+    public void the_error_message_should_indicate(String expectedMessage) {
+        String errorMessage = response.jsonPath().getString("error");
+        assertThat(errorMessage, containsString(expectedMessage));
+    }
+
 }
