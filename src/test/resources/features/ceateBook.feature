@@ -8,7 +8,7 @@ Feature: Create Book API Testing
 
   Scenario: Attempt to create a book with missing title
     Given I am logged in with the username "admin" and password "password"
-    When I attempt to create a book with id 3 and author "Author03" but missing title ""
+    When I attempt to create a book with id 2 and author "Author02" but missing title ""
     Then the response status code should 400
     And the error message should contain "Title is required"
 
